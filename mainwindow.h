@@ -19,8 +19,11 @@ public Q_SLOTS:
     void on_pb_startstop_toggled(bool checked);
     void on_pb_laps_clicked();
     void time_send();
+    void laps_out(const QString&);
+    void on_clear_clicked();
 
 public: Q_SIGNALS:
+    void lapschanged(const QString&);
    //void on_pb_clicked(bool checked = false);
    //void timer_stpwtch_timeout(QPrivateSignal);
 
