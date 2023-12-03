@@ -18,6 +18,7 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         Stopwatch.h
+        Stopwatch.cpp
 )
 
     qt_add_executable(HomeworkQt5

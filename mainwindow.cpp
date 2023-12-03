@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     //настраиваем секундомер
     ui->lbl_time->setText("00:00:00:00");
     stopwatch->setting_send_timer(send_interval);
+    ui->pb_lap->setEnabled(false);
 
     //настраиваем кнопку старт-стоп
     ui->pb_startstop->setCheckable(true);
@@ -37,18 +38,19 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete stopwatch;
 }
 
 void MainWindow::on_pb_startstop_toggled(bool checked){
     if(!checked){
         stopwatch->start_stop(checked);
         ui->pb_startstop->setText("Start");
-        ui->pb_clear->setEnabled(true);
+        ui->pb_lap->setEnabled(false);
     }
     else{
         stopwatch->start_stop(checked);
         ui->pb_startstop->setText("Stop");
-        ui->pb_clear->setEnabled(false);
+        ui->pb_lap->setEnabled(true);
     }
 }
 

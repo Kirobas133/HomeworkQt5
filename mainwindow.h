@@ -25,8 +25,6 @@ public Q_SLOTS:
 
 public: Q_SIGNALS:
     void lapschanged(const QString&);
-   //void on_pb_clicked(bool checked = false);
-   //void timer_stpwtch_timeout(QPrivateSignal);
 
 private:
     Ui::MainWindow *ui;
