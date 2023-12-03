@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "Stopwatch.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,5 +30,6 @@ public: Q_SIGNALS:
 
 private:
     Ui::MainWindow *ui;
+    Stopwatch* stopwatch;
 };
 #endif // MAINWINDOW_H
