@@ -16,12 +16,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    stopwatch = new Stopwatch;
     qint64 send_interval = 10;
+    stopwatch = new Stopwatch(send_interval);
+
 
     //настраиваем секундомер
     ui->lbl_time->setText("00:00:00:00");
-    stopwatch->setting_send_timer(send_interval);
     ui->pb_lap->setEnabled(false);
 
     //настраиваем кнопку старт-стоп
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pb_startstop, &QPushButton::toggled, this, &MainWindow::on_pb_startstop_toggled);
     connect(ui->pb_lap, &QPushButton::clicked, this, &MainWindow::on_pb_laps_clicked);
-    connect(&stopwatch->send_timer, &QTimer::timeout, this, &MainWindow::time_send);
+    connect(stopwatch, &Stopwatch::time_update, this, &MainWindow::time_updating);
     connect(stopwatch, &Stopwatch::lapschanged, this, &MainWindow::laps_out);
     connect(ui->pb_clear, &QPushButton::clicked, this, &MainWindow::on_clear_clicked);
 
@@ -59,8 +59,8 @@ void MainWindow::on_pb_laps_clicked()
     stopwatch->add_lap();
 }
 
-void MainWindow::time_send(){
-    ui->lbl_time->setText(stopwatch->time_sender());
+void MainWindow::time_updating(const QString upgrtime){
+    ui->lbl_time->setText(upgrtime);
 }
 void MainWindow::laps_out(const QString &lap){
     ui->tb_laps->append(lap);

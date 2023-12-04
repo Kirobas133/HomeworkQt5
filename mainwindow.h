@@ -19,7 +19,7 @@ public:
 public Q_SLOTS:
     void on_pb_startstop_toggled(bool checked);
     void on_pb_laps_clicked();
-    void time_send();
+    void time_updating(const QString);
     void laps_out(const QString&);
     void on_clear_clicked();
 

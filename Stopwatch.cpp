@@ -1,5 +1,18 @@
 #include "Stopwatch.h"
 
+Stopwatch::Stopwatch(qint64 interv){
+    last_lap = 0;
+    laps = 1;
+    curr_time = 0;
+    send_timer = new QTimer(this);
+    send_timer->setInterval(interv);
+    connect(send_timer, &QTimer::timeout, this, &Stopwatch::time_sender);
+}
+
+Stopwatch::~Stopwatch(){
+    delete(send_timer);
+}
+
 void Stopwatch::add_lap(){
             qint64 new_lap = curr_time;
             new_lap = new_lap - last_lap;
@@ -28,15 +41,16 @@ void Stopwatch::clear_laps(){
 
 void Stopwatch::start_stop(bool checked){
             if(!checked){
-                send_timer.stop();
+                send_timer->stop();
                 clear_laps();
             }
             else{
-                send_timer.start();
+                send_timer->start();
+
             }
 };
 
-QString Stopwatch::time_sender(){
+void Stopwatch::time_sender(){
             curr_time += 10;
             qint64 tmp = curr_time;
             QString tmpstr;
@@ -47,10 +61,8 @@ QString Stopwatch::time_sender(){
             else{
                 tmpstr = QString::number((tmp%1000)/10);
             }
-            QString res = QTime::fromMSecsSinceStartOfDay(tmp).toString("hh:mm:ss") + ":" + tmpstr;
-            return res;
-};
+            QString upgrtime = QTime::fromMSecsSinceStartOfDay(tmp).toString("hh:mm:ss") + ":" + tmpstr;
+            //return upgrtime;
 
-void Stopwatch::setting_send_timer(qint64 interv){
-            send_timer.setInterval(10);
-}
+            emit time_update(upgrtime);
+};

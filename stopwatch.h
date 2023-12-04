@@ -16,18 +16,19 @@ private:
     qint64 last_lap = 0;
     int laps = 1;
     qint64 curr_time = 0;
-
 public:
-    QTimer send_timer;
+    QTimer* send_timer;
+    Stopwatch(qint64 interv);
+    ~Stopwatch();
 
     void add_lap();
     void clear_laps();
     void start_stop(bool checked);
-    QString time_sender();
-    void setting_send_timer(qint64 interv);
+    void time_sender();
 
 Q_SIGNALS:
     QString lapschanged(const QString &lap_out);
+    QString time_update(QString upgrtime);
 
 };
 
